@@ -6,6 +6,28 @@
 struct RoboPredictor::RoboMemory {
   // Place your RoboMemory content here
   // Note that the size of this data structure can't exceed 64KiB!
+  struct RoboMemory {
+        static constexpr std::size_t MAX_PLANETS = 5000; // 最大存储行星数量，根据内存限制调整
+
+        struct PlanetStats {
+            std::uint64_t planetID;
+            std::uint32_t dayCount;
+            std::uint32_t nightCount;
+        };
+
+        PlanetStats planetStats[MAX_PLANETS];
+        std::size_t planetCount;
+
+        // 飞船建议的历史统计
+        std::uint32_t spaceshipCorrect;
+        std::uint32_t spaceshipTotal;
+    };
+
+    RoboMemory roboMemory;
+
+    // 方法声明
+    bool predictTimeOfDayOnNextPlanet(std::uint64_t nextPlanetID, bool spaceshipComputerPrediction);
+    void observeAndRecordTimeofdayOnNextPlanet(std::uint64_t currentPlanetID, bool timeOfDayOnCurrentPlanet);
 };
 
 bool RoboPredictor::predictTimeOfDayOnNextPlanet(
